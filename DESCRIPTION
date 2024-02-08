@@ -11,25 +11,25 @@ Authors@R: c(
            family = "Aastveit",
            role = c("aut"),
            email = "aastveit@nr.no"))
-Description: Functions for fitting Semi-Markovian multi-state models. Constructs 
-    and optimises the likelihood for arbitrary multi-state models where the possible 
+Description: Functions for fitting Semi-Markovian multi-state models. Constructs
+    and optimises the likelihood for arbitrary multi-state models where the possible
     state transitions can be described by a directed acyclic graph with one or more
-    initial states and one or more absorbing states. Designed for data where the exact 
-    state transitions are not necessarily observed, so that we have interval censoring of 
+    initial states and one or more absorbing states. Designed for data where the exact
+    state transitions are not necessarily observed, so that we have interval censoring of
     the transition times. Data like these are sometimes referred to as panel data.
 License: MIT
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Imports: 
+Imports:
     igraph,
     parallel,
     cubature,
     stats,
     pracma,
     numDeriv
-Suggests: 
+Suggests:
     rmarkdown,
     knitr,
     msm

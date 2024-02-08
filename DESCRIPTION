@@ -31,5 +31,6 @@ Imports:
     numDeriv
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    msm
 VignetteBuilder: knitr

@@ -62,7 +62,7 @@ print(names_of_survival_density(gg))
 
 ## ----eval=F-------------------------------------------------------------------
 startval <- c(-2.5,-1.1,-1.2,-3.1,-2.8)
-mlo <- smms(startval,dd,gg, mc_cores = 1, hessian_matrix = T)
+mlo <- smms(startval,dd,gg, mc_cores = 1, hessian_matrix = TRUE)
 
 ## -----------------------------------------------------------------------------
 # Compute AIC (higher values are better with this definition)
@@ -126,4 +126,4 @@ t03_ci <- transition_prob_ci_band("well-death", tval, vt, mlo$opt$par, gg,
 )
 
 ## ----eval=F-------------------------------------------------------------------
-#  write_loglikelihood(gg,abs_exact = T)
+write_loglikelihood(gg,abs_exact = TRUE)

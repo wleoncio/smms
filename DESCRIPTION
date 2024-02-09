@@ -17,6 +17,8 @@ Description: Functions for fitting Semi-Markovian multi-state models. Constructs
     initial states and one or more absorbing states. Designed for data where the exact
     state transitions are not necessarily observed, so that we have interval censoring of
     the transition times. Data like these are sometimes referred to as panel data.
+    The methodology is explained in the paper by Aastveit, Cunen and Hjort (2022)
+    <doi:10.1177/09622802231160550>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

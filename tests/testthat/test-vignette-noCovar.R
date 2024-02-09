@@ -34,8 +34,6 @@ gg <- graph_from_literal(
   "well" - -+"mild" - -+"severe" - -+"death", "well" - -+"death",
   "mild" - -+"death"
 )
-par(mar = c(1, 1, 1, 1))
-plot(gg, layout = layout_with_sugiyama(gg, layers = c(1, 1, 1, 2))$layout, vertex.size = 45)
 
 ## -----------------------------------------------------------------------------
 f_01 <- function(param, x, tt) {
@@ -119,62 +117,9 @@ cav.msm <- msm(state ~ time,
 
 prev_np <- prevalence.msm(cav.msm, times = tval)
 
-# Plot
-par(bty = "l")
-par(mar = c(4, 4, 1, 2))
-par(cex = 1)
-plot(tval, prev_np$`Observed percentages`[, 1],
-  type = "l", ylim = c(0, 100), lwd = 3,
-  xlab = "time", col = "dark grey", ylab = "prevalence (%)"
-)
-polygon(c(tval, rev(tval)), c(p0_ci$upper * 100, rev(p0_ci$lower * 100)),
-  col = adjustcolor("#b2e2e2", alpha.f = 0.2), border = NA
-)
-lines(tval, p0_ci$est * 100, col = "#b2e2e2", lwd = 3)
-
-lines(tval, prev_np$`Observed percentages`[, 2], col = "dark grey", lwd = 3)
-polygon(c(tval, rev(tval)), c(p1_ci$upper * 100, rev(p1_ci$lower * 100)),
-  col = adjustcolor("#66c2a4", alpha.f = 0.2), border = NA
-)
-lines(tval, p1_ci$est * 100, col = "#66c2a4", lwd = 3)
-
-
-lines(tval, prev_np$`Observed percentages`[, 3], col = "dark grey", lwd = 3)
-polygon(c(tval, rev(tval)), c(p2_ci$upper * 100, rev(p2_ci$lower * 100)),
-  col = adjustcolor("#2ca25f", alpha.f = 0.2), border = NA
-)
-lines(tval, p2_ci$est * 100, col = "#2ca25f", lwd = 3)
-
-lines(tval, prev_np$`Observed percentages`[, 4], col = "dark grey", lwd = 3)
-polygon(c(tval, rev(tval)), c(p3_ci$upper * 100, rev(p3_ci$lower * 100)),
-  col = adjustcolor("#006d2c", alpha.f = 0.2), border = NA
-)
-lines(tval, p3_ci$est * 100, col = "#006d2c", lwd = 3)
-
-legend("right",
-  legend = c("non-parametric", "well", "mild", "severe", "death"),
-  col = c("dark grey", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"),
-  lwd = 2, bty = "n", cex = 1
-)
-
-
 ## ----message=F,error=F, fig.width=6,fig.align = "center",fig.height=4---------
 tval <- seq(0.01, 30, length = 50)
 So <- overall_survival_ci_band(tval, mlo$opt$par, gg, hessian = mlo$hess)
-
-par(bty = "l")
-par(mar = c(4, 4, 2, 2))
-par(cex = 1)
-plot.survfit.msm(cav.msm,
-  col.surv = "dark grey", lwd.surv = 2, col = NULL, lwd = 3,
-  xlab = "years after transplantation", ylab = "survival", main = " ",
-  legend.pos = c(30, 2)
-)
-# using msm package for the nonparametric estimate (for now)
-polygon(c(tval, rev(tval)), c(So$upper, rev(So$lower)),
-  col = adjustcolor("#0571b0", alpha.f = 0.2), border = NA
-)
-lines(tval, So$est, col = "#0571b0", lwd = 3)
 
 ## -----------------------------------------------------------------------------
 tval <- seq(10, 40, length = 50)
@@ -194,43 +139,6 @@ t13_ci <- transition_prob_ci_band("mild-death", tval, vt, mlo$opt$par, gg,
 t03_ci <- transition_prob_ci_band("well-death", tval, vt, mlo$opt$par, gg,
   hessian = mlo$hess
 )
-
-## ----fig.width=6,fig.align = "center",fig.height=4----------------------------
-par(bty = "l")
-par(mar = c(4, 4, 2, 2))
-par(cex = 1)
-plot(tval, t01_ci$est,
-  type = "l", ylim = c(0, 1), col = "#5ab4ac", lwd = 3,
-  ylab = "transition probability", xlab = "time"
-)
-polygon(c(tval, rev(tval)), c(t01_ci$upper, rev(t01_ci$lower)),
-  col = adjustcolor("#0571b0", alpha.f = 0.2), border = NA
-)
-polygon(c(tval, rev(tval)), c(t12_ci$upper, rev(t12_ci$lower)),
-  col = adjustcolor("#5ab4ac", alpha.f = 0.2), border = NA
-)
-polygon(c(tval, rev(tval)), c(t23_ci$upper, rev(t23_ci$lower)),
-  col = adjustcolor("#f6e8c3", alpha.f = 0.2), border = NA
-)
-polygon(c(tval, rev(tval)), c(t13_ci$upper, rev(t13_ci$lower)),
-  col = adjustcolor("#d8b365", alpha.f = 0.2), border = NA
-)
-polygon(c(tval, rev(tval)), c(t03_ci$upper, rev(t03_ci$lower)),
-  col = adjustcolor("#8c510a", alpha.f = 0.2), border = NA
-)
-lines(tval, t12_ci$est, lwd = 3, col = "#5ab4ac")
-lines(tval, t23_ci$est, lwd = 3, col = "#f6e8c3")
-lines(tval, t13_ci$est, lwd = 3, col = "#d8b365")
-lines(tval, t03_ci$est, lwd = 3, col = "#8c510a")
-legend(
-  x = 32, y = 0.8, legend = c(
-    "well-mild", "mild-severe", "severe-death",
-    "mild-death", "well-death"
-  ),
-  col = c("#5ab4ac", "#01665e", "#f6e8c3", "#d8b365", "#8c510a"),
-  lwd = 2, bty = "n", cex = 0.8
-)
-
 
 ## ----eval=F-------------------------------------------------------------------
 #  write_loglikelihood(gg,abs_exact = T)

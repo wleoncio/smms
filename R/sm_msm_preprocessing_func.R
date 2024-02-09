@@ -8,8 +8,6 @@
 #' @return A data frame with 3 columns giving a mapping from the state names (first column) to a partial ordering of the states
 #' (second column, from 0 to k, and where a higher number indicates that a state is further removed from the initial state).
 #' The last column indicates whether each state is initial, absorbing or transient.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 state_ordering = function(graph){
   ## Calculating the initial state
   all_edges = igraph::get.edgelist(graph)
@@ -68,8 +66,6 @@ state_ordering = function(graph){
 #' state (the state which the patient occupies at the observation time).
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A data frame with the same 3 columns as 'data', but with fewer rows (potentially).
-#' @export
-# TODO: either add @example(s) or remove @export tag
 relevant_timepoints = function(data, graph){
   inds = unique(data$patient)
   nn = length(inds)
@@ -136,8 +132,6 @@ relevant_timepoints = function(data, graph){
 #'
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A vector with string elements indicating the states that were visited/traveled.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 construct_formula_types = function(graph){
   state_ord = state_ordering(graph)
   init <- state_ord$order[which(state_ord$type=="init")]
@@ -180,8 +174,6 @@ construct_formula_types = function(graph){
 #'
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A vector with string elements indicating the states in which the patient is observed.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 construct_obs_types = function(graph){
   form_types = construct_formula_types(graph)
   obs_types = c()
@@ -206,8 +198,6 @@ construct_obs_types = function(graph){
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A matrix with formula types as rows and observation types as columns: "1" indicates
 #' a link, "0" indicates no link.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 all_types = function(graph){
   formula_types = construct_formula_types(graph)
   observation_types = construct_obs_types(graph)
@@ -239,9 +229,6 @@ all_types = function(graph){
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A data frame with as many rows as there are patients and with one column per relevant time-point pluss one column indicating
 #' the observation type of each patient.
-#'
-#' @export
-# TODO: either add @example(s) or remove @export tag
 arrange_data = function(data, graph){
   state_ord = state_ordering(graph)
   init <- sort(state_ord$order[which(state_ord$type=="init")])
@@ -285,9 +272,6 @@ arrange_data = function(data, graph){
 #'
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A list of three matrices: travelled, passedBy, and possible next.
-#'
-#' @export
-# TODO: either add @example(s) or remove @export tag
 edge_matrices = function(graph){
   all_edges = igraph::get.edgelist(graph)
   # Update with state ordering as node names:

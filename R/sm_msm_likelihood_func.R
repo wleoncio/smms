@@ -46,8 +46,6 @@ names_of_survival_density = function(graph){
 #' @param abs_exact A boolean indicating whether the time of entrance into absorbing states is observed
 #' exactly (TRUE) or not (FALSE). Default value is TRUE.
 #' @return A text string giving the R syntax of the integrand.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 type_to_integrand = function(form_type,edge_mats,names_surv_dens,abs_exact=TRUE){
 
   travi <- edge_mats$traveled[form_type,,drop=F]
@@ -360,8 +358,6 @@ change_integrand <- function(integr){
 #' @return A list with "lower" a vector of the lower limits of integration, "upper" a vector of the
 #' upper limits of integration, and "tmax" the last timepoint (in which the integrand often needs
 #' to be evaluated).
-#' @export
-# TODO: either add @example(s) or remove @export tag
 finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_exact=TRUE){
   splitted_f_type = unlist(strsplit(form_type, ""))
 
@@ -460,8 +456,6 @@ finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_e
 #' @param mc_cores The number of cores to use (for parallelisation). The function uses the mclapply()
 #' function from the parallel package.
 #' @return The value of the negative log-likelihood corresponding to the dataset and parameters provided.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 mloglikelihood <-  function(param,integrands,limits, X = NULL,cmethod = "hcubature",mc_cores = 2){
   # Test that limits and integrand have same length
 

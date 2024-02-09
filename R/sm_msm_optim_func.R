@@ -86,8 +86,6 @@ smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, h
 #' @param cmethod The integration method of choice for the cubintegrate() function. Only for integrals
 #' of higher dimension than 2. Defaults to "hcubature".
 #' @return A matrix with the hessian matrix.
-#' @export
-# TODO: either add @example(s) or remove @export tag
 hessian_matrix = function(param, data, graph, X = NULL, mc_cores = 1,cmethod = "hcubature"){
   formula_obs_types = all_types(graph)
   edge_mats = edge_matrices(graph)

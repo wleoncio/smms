@@ -191,5 +191,7 @@ write_loglikelihood <- function(graph,abs_exact=TRUE){
     all_parts[i] <- write_type(obs_type=o_types[i],graph=graph,abs_exact=abs_exact)
   }
   eq <- paste("\\begin{align*} \n \\ell_n (\\theta)= ",paste(all_parts,collapse=" + "),". \n \\end{align*}")
-  writeLines(eq, "likelihood_latex.txt")
+  filename <- file.path(tempdir(), "likelihood_latex.txt")
+  writeLines(eq, filename)
+  message("The log-likelihood has been written to ", filename)
 }

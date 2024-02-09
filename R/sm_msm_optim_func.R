@@ -59,14 +59,31 @@ smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, h
   # optimizer <- stats::optim(startval,mloglikelihood,integrand = integrand,limits = all_integral_limits,X=X, method = "L-BFGS",
   #                    mc_cores=mc_cores,hessian = FALSE)
 
-  optimizer <- stats::nlminb(startval,mloglikelihood,integrands = integrand,limits = all_integral_limits,X=X, cmethod=cmethod,
-                            mc_cores=mc_cores,hessian = FALSE, lower=rep(-50,length(startval)),upper=rep(50,length(startval)))
+  # FIXME: integrand contains calls to functions (e.g. f_01) from the global environment, which are out of scope
+  optimizer <- stats::nlminb(
+    start = startval,
+    objective = mloglikelihood,
+    integrands = integrand,
+    limits = all_integral_limits,
+    X = X,
+    cmethod = cmethod,
+    mc_cores = mc_cores,
+    lower = rep(-50, length(startval)),
+    upper = rep(50, length(startval))
+  )
 
-  if(hessian_matrix == TRUE){
-    hessian_optimizer = numDeriv::hessian(mloglikelihood, optimizer$par, integrands = integrand,limits = all_integral_limits, cmethod=cmethod,
-                                          mc_cores=mc_cores,X=X)
+  if (hessian_matrix) {
+    hessian_optimizer <- numDeriv::hessian(
+      func = mloglikelihood,
+      x = optimizer$par,
+      integrands = integrand,
+      limits = all_integral_limits,
+      X = X,
+      cmethod = cmethod,
+      mc_cores = mc_cores
+    )
     return(list(opt=optimizer, hess=hessian_optimizer))
-  } else{
+  } else {
     return(list(opt=optimizer))
   }
 }

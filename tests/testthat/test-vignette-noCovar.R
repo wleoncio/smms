@@ -61,12 +61,8 @@ S_13 <- function(param, x, tt) {
 print(names_of_survival_density(gg))
 
 ## ----eval=F-------------------------------------------------------------------
-#  startval <- c(-2.5,-1.1,-1.2,-3.1,-2.8)
-#
-#  mlo <- smms(startval,dd,gg, mc_cores = 1, hessian_matrix = T)
-
-## ----echo=F-------------------------------------------------------------------
-load("~/UiO/Projects/smms/vignettes/cav_expo_noCov_optims")
+startval <- c(-2.5,-1.1,-1.2,-3.1,-2.8)
+mlo <- smms(startval,dd,gg, mc_cores = 1, hessian_matrix = T)
 
 ## -----------------------------------------------------------------------------
 # Compute AIC (higher values are better with this definition)

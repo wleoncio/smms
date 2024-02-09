@@ -1,15 +1,4 @@
-## ----include = FALSE----------------------------------------------------------
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "##"
-)
-
-## ----message=FALSE------------------------------------------------------------
-library(smms)
-library(igraph) # For specifying the multi-state graph
-library(msm) # To get the CAV dataset
-
-dd <- cav
+dd <- msm::cav
 dd <- dd[!is.na(dd$pdiag), ]
 
 # Remove observations where the patient appears to go back to a previous state

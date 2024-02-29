@@ -15,7 +15,7 @@ ddo <- dd
 tab <- data.frame(state = 1:4, name = c("well", "mild", "severe", "death"))
 dd$state <- tab$name[match(dd$state, tab$state)]
 
-print(dd[1:11, ])
+dd[1:11, ] # TODO: convert to test
 
 ## ----fig.height=3,fig.align = "center"----------------------------------------
 # Specify the graph:
@@ -38,11 +38,11 @@ assign("S_03", function(param, x, tt) 1 - pexp(tt, exp(param[4])), envir = .Glob
 assign("S_13", function(param, x, tt) 1 - pexp(tt, exp(param[5])), envir = .GlobalEnv)
 
 ## -----------------------------------------------------------------------------
-print(names_of_survival_density(gg))
+names_of_survival_density(gg) # TODO: convert to test
 
 ## ----eval=F-------------------------------------------------------------------
 startval <- c(-2.5,-1.1,-1.2,-3.1,-2.8)
-mlo <- smms(startval, dd, gg, mc_cores = 1L, hessian_matrix = TRUE)
+mlo <- smms(startval, dd, gg, mc_cores = 1L, hessian_matrix = TRUE) # TODO: create short version for quicker debugging
 
 ## -----------------------------------------------------------------------------
 # Compute AIC (higher values are better with this definition)
@@ -50,10 +50,10 @@ aic <- (-2 * mlo$opt$objective) - 2 * length(mlo$opt$par) #-2887.1
 
 # Look at estimates and 95% confidence intervals.
 # On the -Inf to Inf scale:
-print(round(est_ci(mlo$opt$par, mlo$hess), 2))
+round(est_ci(mlo$opt$par, mlo$hess), 2) # TODO: convert to test
 
 # On the 0 to Inf scale (on the transition intensity scale):
-round(exp(est_ci(mlo$opt$par, mlo$hess)), 2)
+round(exp(est_ci(mlo$opt$par, mlo$hess)), 2) # TODO: remove or convert to test
 
 ## -----------------------------------------------------------------------------
 tval <- seq(0.01, 30, length = 50)
@@ -107,3 +107,5 @@ t03_ci <- transition_prob_ci_band("well-death", tval, vt, mlo$opt$par, gg,
 
 ## ----eval=F-------------------------------------------------------------------
 write_loglikelihood(gg,abs_exact = TRUE)
+
+# TODO: write tests to all objects in ls()

@@ -12,7 +12,7 @@
 #' @export
 # TODO: either add @example(s) or remove @export tag
 names_of_survival_density = function(graph){
-  all_edges = igraph::get.edgelist(graph)
+  all_edges = igraph::as_edgelist(graph)
   # Update with state ordering as node names:
   state_ord = state_ordering(graph)
   all_edges_new=all_edges

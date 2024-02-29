@@ -10,7 +10,7 @@
 #' The last column indicates whether each state is initial, absorbing or transient.
 state_ordering = function(graph){
   ## Calculating the initial state
-  all_edges = igraph::get.edgelist(graph)
+  all_edges = igraph::as_edgelist(graph)
   id_initial = which(!(all_edges[,1] %in% all_edges[,2]))
   initial_states = unique(all_edges[id_initial,1])
 
@@ -273,7 +273,7 @@ arrange_data = function(data, graph){
 #' @param graph A directed, acyclic graph in the igraph format (igraph package).
 #' @return A list of three matrices: travelled, passedBy, and possible next.
 edge_matrices = function(graph){
-  all_edges = igraph::get.edgelist(graph)
+  all_edges = igraph::as_edgelist(graph)
   # Update with state ordering as node names:
   state_ord = state_ordering(graph)
   all_edges[,1] <- state_ord$order[match(all_edges[,1],state_ord$state)]

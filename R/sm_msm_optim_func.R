@@ -345,7 +345,7 @@ occupancy_prob_delta = function(state, time, param, graph, xval = NULL){
 #' @param xval A vector of covariate values.
 #' @return A vector of the same length as time.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/overall_survival_example.R
 overall_survival = function(time, param, graph, xval = NULL){
   edge_mats = edge_matrices(graph)
   names_surv_dens = names_of_survival_density(graph)
@@ -411,7 +411,7 @@ overall_survival = function(time, param, graph, xval = NULL){
 #' @param level The confidence level for the uncertainty bands, defaults to 0.95.
 #' @return A vector of the same length as time.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/overall_survival_example.R
 overall_survival_ci_band <- function(time,param,graph,xval,hessian,level=0.95){
   est <- overall_survival(time=time,param=param,graph=graph,xval=xval)
   delta <- overall_survival_delta(time=time,param=param,graph=graph,xval=xval)

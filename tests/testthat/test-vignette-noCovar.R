@@ -25,17 +25,17 @@ gg <- igraph::graph_from_literal(
 )
 
 ## -----------------------------------------------------------------------------
-f_01 <- function(param, x, tt) dexp(tt, exp(param[1]))
-f_12 <- function(param, x, tt) dexp(tt, exp(param[2]))
-f_23 <- function(param, x, tt) dexp(tt, exp(param[3]))
-f_03 <- function(param, x, tt) dexp(tt, exp(param[4]))
-f_13 <- function(param, x, tt) dexp(tt, exp(param[5]))
+assign("f_01", function(param, x, tt) dexp(tt, exp(param[1])), envir = .GlobalEnv)
+assign("f_12", function(param, x, tt) dexp(tt, exp(param[2])), envir = .GlobalEnv)
+assign("f_23", function(param, x, tt) dexp(tt, exp(param[3])), envir = .GlobalEnv)
+assign("f_03", function(param, x, tt) dexp(tt, exp(param[4])), envir = .GlobalEnv)
+assign("f_13", function(param, x, tt) dexp(tt, exp(param[5])), envir = .GlobalEnv)
 
-S_01 <- function(param, x, tt) 1 - pexp(tt, exp(param[1]))
-S_12 <- function(param, x, tt) 1 - pexp(tt, exp(param[2]))
-S_23 <- function(param, x, tt) 1 - pexp(tt, exp(param[3]))
-S_03 <- function(param, x, tt) 1 - pexp(tt, exp(param[4]))
-S_13 <- function(param, x, tt) 1 - pexp(tt, exp(param[5]))
+assign("S_01", function(param, x, tt) 1 - pexp(tt, exp(param[1])), envir = .GlobalEnv)
+assign("S_12", function(param, x, tt) 1 - pexp(tt, exp(param[2])), envir = .GlobalEnv)
+assign("S_23", function(param, x, tt) 1 - pexp(tt, exp(param[3])), envir = .GlobalEnv)
+assign("S_03", function(param, x, tt) 1 - pexp(tt, exp(param[4])), envir = .GlobalEnv)
+assign("S_13", function(param, x, tt) 1 - pexp(tt, exp(param[5])), envir = .GlobalEnv)
 
 ## -----------------------------------------------------------------------------
 print(names_of_survival_density(gg))

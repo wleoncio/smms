@@ -1,4 +1,4 @@
-dd <- msm::cav
+dd <- head(msm::cav, 300)
 dd <- dd[!is.na(dd$pdiag), ]
 
 # Remove observations where the patient appears to go back to a previous state
@@ -36,4 +36,4 @@ S_13 <- function(param, x, tt) 1 - pexp(tt, exp(param[5]))
 
 ## -----------------------------------------------------------------------------
 startval <- c(-2.5,-1.1,-1.2,-3.1,-2.8)
-mlo <- smms(startval, dd, gg, mc_cores = 1L, hessian_matrix = TRUE)
+mlo <- smms(startval, dd, gg, mc_cores = 1L)

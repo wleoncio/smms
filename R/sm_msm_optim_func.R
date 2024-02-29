@@ -496,7 +496,7 @@ overall_survival_delta = function(time, param, graph, xval = NULL){
 #' @param xval A vector of covariate values.
 #' @return A vector of the same length as time_t.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/transition_prob_example.R
 transition_prob = function(trans_ji, time_t,time_v, param, graph, xval = NULL){
   edge_mats = edge_matrices(graph)
   names_surv_dens = names_of_survival_density(graph)
@@ -590,7 +590,7 @@ transition_prob = function(trans_ji, time_t,time_v, param, graph, xval = NULL){
 #' @param level The confidence level for the uncertainty bands, defaults to 0.95.
 #' @return A vector of the same length as time.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/transition_prob_example.R
 transition_prob_ci_band <- function(trans_ji, time_t,time_v, param,graph,xval,hessian,level=0.95){
   est <- transition_prob(trans_ji=trans_ji,time_t=time_t,time_v=time_v,param=param,graph=graph,xval=xval)
   delta <- transition_prob_delta(trans_ji=trans_ji,time_t=time_t,time_v=time_v,param=param,graph=graph,xval=xval)

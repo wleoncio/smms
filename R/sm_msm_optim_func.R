@@ -58,8 +58,6 @@ smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, h
 
   # optimizer <- stats::optim(startval,mloglikelihood,integrand = integrand,limits = all_integral_limits,X=X, method = "L-BFGS",
   #                    mc_cores=mc_cores,hessian = FALSE)
-
-  # FIXME: integrand contains calls to functions (e.g. f_01) from the global environment, which are out of scope
   optimizer <- stats::nlminb(
     start = startval,
     objective = mloglikelihood,

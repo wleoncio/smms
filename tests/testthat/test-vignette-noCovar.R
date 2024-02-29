@@ -75,12 +75,12 @@ rownames(oneway4.q) <- colnames(oneway4.q) <- c(
   "Well", "Mild", "Severe",
   "Death"
 )
-cav.msm <- msm(state ~ time,
+cav.msm <- msm::msm(state ~ time,
   subject = patient, data = ddo, qmatrix = oneway4.q,
   death = 4, method = "BFGS"
 )
 
-prev_np <- prevalence.msm(cav.msm, times = tval)
+prev_np <- msm::prevalence.msm(cav.msm, times = tval)
 
 ## ----message=F,error=F, fig.width=6,fig.align = "center",fig.height=4---------
 tval <- seq(0.01, 30, length = 50)

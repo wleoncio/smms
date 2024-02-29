@@ -468,7 +468,7 @@ mloglikelihood <-  function(param,integrands,limits, X = NULL,cmethod = "hcubatu
       tmax <- unlist(limits[[i]][[j]]$tmax)
 
       # Retrieve the functions defined in the global environment
-      list2env(get_functions(), envir = environment()) # TODO: incorporate into get_functions?
+      get_functions(environment())
 
       if(length(lower) == 0){
         lli[j] = integrands[[i]][[j]](times=1,tt = tmax[1], tt2=tmax[2],param = param, x = X[i,]) # the value of times does not matter

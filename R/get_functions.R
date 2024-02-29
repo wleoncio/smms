@@ -1,4 +1,4 @@
-get_functions <- function() {
+get_functions <- function(target_env) {
   functions <- list()
   functions_list <- ls(envir = .GlobalEnv)
   for (func in functions_list) {
@@ -6,5 +6,5 @@ get_functions <- function() {
       functions[[func]] <- get(func)
     }
   }
-  return(functions)
+  list2env(functions, envir = target_env)
 }

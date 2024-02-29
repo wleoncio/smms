@@ -143,7 +143,7 @@ hessian_matrix = function(param, data, graph, X = NULL, mc_cores = 1,cmethod = "
 #' @param pos Boolean denoting whether the estimates and intervals should live on the real line (default), or on the postive half-line (pos=TRUE).
 #' @return A table with one row per estimate, and 3 columns (estimate, lower.ci, upper.ci).
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/est_ci_example.R
 est_ci = function(param, hessian,level=0.95,pos=FALSE){
   zz <- stats::qnorm(0.5*(1-level),lower.tail = F)
   varCov <- solve(hessian)

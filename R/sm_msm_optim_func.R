@@ -27,7 +27,7 @@
 #' matrix if variance_matrix = TRUE, and the maximum log-likelihood value.
 #'
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/smms_example.R
 smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, hessian_matrix = FALSE,cmethod = "hcubature"){
   formula_obs_types = all_types(graph)
   edge_mats = edge_matrices(graph)

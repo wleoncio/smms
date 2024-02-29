@@ -182,7 +182,12 @@ write_type <- function(obs_type,graph,abs_exact=TRUE){
 #' @return Writes a txt file into the working directory within which one will find the entire log-likelihood
 #' formula belonging to the graph, in latex format.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @examples
+#' gg <- igraph::graph_from_literal(
+#'  "well" - -+"mild" - -+"severe" - -+"death", "well" - -+"death",
+#'  "mild" - -+"death"
+#' )
+#' write_loglikelihood(gg)
 write_loglikelihood <- function(graph,abs_exact=TRUE){
   o_types <- construct_obs_types(graph)
   all_parts <- rep(NA,length(o_types))

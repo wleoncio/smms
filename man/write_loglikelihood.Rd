@@ -19,3 +19,10 @@ formula belonging to the graph, in latex format.
 \description{
 Write log-likelihood for a graph in latex format.
 }
+\examples{
+gg <- igraph::graph_from_literal(
+ "well" - -+"mild" - -+"severe" - -+"death", "well" - -+"death",
+ "mild" - -+"death"
+)
+write_loglikelihood(gg)
+}

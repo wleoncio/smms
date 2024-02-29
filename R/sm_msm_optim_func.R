@@ -172,7 +172,7 @@ est_ci = function(param, hessian,level=0.95,pos=FALSE){
 #' @param xval A vector of covariate values.
 #' @return A vector of the same length as time.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/occupancy_prob_example.R
 occupancy_prob = function(state, time, param, graph, xval = NULL){
   edge_mats = edge_matrices(graph)
   names_surv_dens = names_of_survival_density(graph)
@@ -247,7 +247,7 @@ occupancy_prob = function(state, time, param, graph, xval = NULL){
 #' @param level The confidence level for the uncertainty bands, defaults to 0.95.
 #' @return A vector of the same length as time.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @example inst/examples/occupancy_prob_example.R
 occupancy_prob_ci_band <- function(state,time,param,graph,xval,hessian,level=0.95){
   est <- occupancy_prob(state=state,time=time,param=param,graph=graph,xval=xval)
   delta <- occupancy_prob_delta(state=state,time=time,param=param,graph=graph,xval=xval)

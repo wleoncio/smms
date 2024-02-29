@@ -21,3 +21,10 @@ is an absorbing state, or "trans" for transient if not.
 Produce a table with each edge of the graph and the corresponding names of survival functions
 and densities
 }
+\examples{
+gg <- igraph::graph_from_literal(
+ "well" - -+"mild" - -+"severe" - -+"death", "well" - -+"death",
+ "mild" - -+"death"
+)
+names_of_survival_density(gg)
+}

@@ -10,7 +10,12 @@
 #' original user-defined names*. The last column gives the type of edge: either "abs" for absorbing if the target node
 #' is an absorbing state, or "trans" for transient if not.
 #' @export
-# TODO: either add @example(s) or remove @export tag
+#' @examples
+#' gg <- igraph::graph_from_literal(
+#'  "well" - -+"mild" - -+"severe" - -+"death", "well" - -+"death",
+#'  "mild" - -+"death"
+#' )
+#' names_of_survival_density(gg)
 names_of_survival_density = function(graph){
   all_edges = igraph::as_edgelist(graph)
   # Update with state ordering as node names:

@@ -221,7 +221,7 @@ all_types = function(graph){
 #' Arrange data set
 #'
 #' Discard unrelevant time-points and arrange data into one row per patient format. The column names for the relevant time-points
-#' are on the format t_{im}/t_{iM}, where i is the state numbering according to state_ordering() and m/M indicate the minimum and maximum
+#' are on the format \eqn{t_{im} / t_{iM}}{t_im / t_iM}, where i is the state numbering according to state_ordering() and m/M indicate the minimum and maximum
 #' time-point in each state. For initial states only the maximum time-point is relevant, and for absorbing states only the minimum.
 #'
 #' @param data A data frame with 3 columns: patient (numbering or names for each patient), time (the time when a patient was observed),

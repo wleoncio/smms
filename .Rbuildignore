@@ -5,3 +5,5 @@ CITATION.cff
 README*
 scripts
 aux
+^doc$
+^Meta$

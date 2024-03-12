@@ -7,3 +7,5 @@ scripts
 aux
 ^doc$
 ^Meta$
+^cran-comments\.md$
+NEWS.md

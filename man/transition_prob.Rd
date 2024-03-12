@@ -31,8 +31,11 @@ a prior time-point v. Returns a vector of zeros if the transition from j to i is
 Only computes probabilities for direct transitions (a specific edge in the graph)
 }
 \examples{
-dd <- head(msm::cav, 300)
-dd <- dd[!is.na(dd$pdiag), ]
+# Reduced msm::cav dataset
+set.seed(114385)
+cav_not_na <- msm::cav[!is.na(msm::cav$pdiag), ]
+patient_sample <- sample(unique(cav_not_na$PTNUM), 7L)
+dd <- cav_not_na[cav_not_na$PTNUM \%in\% patient_sample, ]
 
 # Remove observations where the patient appears to go back to a previous state
 # (assumed to be impossible):

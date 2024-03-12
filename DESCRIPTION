@@ -2,16 +2,29 @@ Package: smms
 Title: Semi-Markov Multi-State Models for Interval Censored Data
 Version: 0.0.1.9002
 Date: 2024-03-12
-Authors@R: c(
-    person(given = "Céline",
-           family = "Cunen",
-           role = c("aut", "cre"),
-           email = "celine.cunen@gmail.com",
-           comment = c(ORCID = "0000-0002-8215-3080")),
-    person(given = "Marthe",
-           family = "Aastveit",
-           role = c("aut"),
-           email = "aastveit@nr.no"))
+Authors@R:
+    c(
+        person(
+            given = "Céline",
+            family = "Cunen",
+            role = "aut",
+            email = "celine.cunen@gmail.com",
+            comment = c(ORCID = "0000-0002-8215-3080")
+        ),
+        person(
+            given = "Marthe",
+            family = "Aastveit",
+            role = "aut",
+            email = "aastveit@nr.no"
+        ),
+        person(
+            given = "Waldir",
+            family = "Leoncio",
+            role = "cre",
+            email = "w.l.netto@medisin.uio.no",
+            comment = c(ORCID = "0000-0002-6719-6162")
+        )
+    )
 Description: Functions for fitting Semi-Markovian multi-state models. Constructs
     and optimises the likelihood for arbitrary multi-state models where the possible
     state transitions can be described by a directed acyclic graph with one or more

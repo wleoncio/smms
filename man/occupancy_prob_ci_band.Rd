@@ -30,9 +30,9 @@ The last state is often heavy to compute, but recall that is has to be equal to 
 }
 \examples{
 # Reduced msm::cav dataset
-set.seed(1143857)
+set.seed(114385)
 cav_not_na <- msm::cav[!is.na(msm::cav$pdiag), ]
-patient_sample <- sample(unique(cav_not_na$PTNUM), 10L)
+patient_sample <- sample(unique(cav_not_na$PTNUM), 7L)
 dd <- cav_not_na[cav_not_na$PTNUM \%in\% patient_sample, ]
 
 # Remove observations where the patient appears to go back to a previous state

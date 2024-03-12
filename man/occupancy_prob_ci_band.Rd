@@ -29,8 +29,11 @@ A vector of the same length as time.
 The last state is often heavy to compute, but recall that is has to be equal to 1 minus the others
 }
 \examples{
-dd <- head(msm::cav, 300)
-dd <- dd[!is.na(dd$pdiag), ]
+# Reduced msm::cav dataset
+set.seed(1143857)
+cav_not_na <- msm::cav[!is.na(msm::cav$pdiag), ]
+patient_sample <- sample(unique(cav_not_na$PTNUM), 10L)
+dd <- cav_not_na[cav_not_na$PTNUM \%in\% patient_sample, ]
 
 # Remove observations where the patient appears to go back to a previous state
 # (assumed to be impossible):

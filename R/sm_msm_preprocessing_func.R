@@ -107,7 +107,7 @@ relevant_timepoints = function(data, graph){
 
     rle_i <- rle(ddi$state)
     id_unrelevant = NULL
-    for(j in 1:length(rle_i$values)){
+    for(j in seq_along(rle_i$values)){
       val <- rle_i$values[j]
       num <- rle_i$lengths[j]
       if(val%in%init & num >= 2){ #initial states
@@ -154,7 +154,7 @@ construct_formula_types = function(graph){
     if(length(paths) == 0){
       form_types = c(form_types, as.character(subsets[p, 1]))
     } else{ ## For all the other possible roads to travel
-      for(i in 1:length(paths)){
+      for(i in seq_along(paths)){
         st = sort(state_ord$order[which(state_ord$state%in%igraph::as_ids(paths[[i]]))])
         data_frame_subset_type_as_char = paste(st, collapse = "")
         form_types = c(form_types, data_frame_subset_type_as_char)
@@ -177,11 +177,11 @@ construct_formula_types = function(graph){
 construct_obs_types = function(graph){
   form_types = construct_formula_types(graph)
   obs_types = NULL
-  for (i in 1:length(form_types)){
+  for (i in seq_along(form_types)){
     st = strsplit(form_types[i],"")[[1]]
     obs_types = c(obs_types,form_types[i])
     if (length(st)>2){
-      ot = sapply(2:(length(st)-1), function(r) utils::combn(st[1:length(st)],r),simplify=F)
+      ot = sapply(2:(length(st)-1), function(r) utils::combn(st[seq_along(st)],r),simplify=F)
       ot = lapply(ot,function(m) m[,which(m[1,]==st[1])])
       obs_types = c(obs_types,unlist(lapply(ot,function(m) apply(m,2,paste,collapse=""))))
     }
@@ -204,9 +204,9 @@ all_types = function(graph){
   matrix_all_types = matrix(data = 0, nrow = length(formula_types), ncol = length(observation_types))
   rownames(matrix_all_types) = formula_types
   colnames(matrix_all_types) = observation_types
-  for(i in 1:length(formula_types)){
+  for(i in seq_along(formula_types)){
     formula_types_split = unlist(strsplit(formula_types[i], ""))
-    for(j in 1:length(observation_types)){
+    for(j in seq_along(observation_types)){
       observation_types_split = unlist(strsplit(observation_types[j], ""))
       if(formula_types_split[1] == observation_types_split[1] &
          formula_types_split[length(formula_types_split)] == observation_types_split[length(observation_types_split)] &
@@ -286,7 +286,7 @@ edge_matrices = function(graph){
   matrix_travelled = matrix(data = 0, nrow = length(formula_types), ncol = length(edge_names))
   rownames(matrix_travelled) = formula_types
   colnames(matrix_travelled) = edge_names
-  for(i in 1:length(formula_types)){
+  for(i in seq_along(formula_types)){
     formula_str_pairs = substring(formula_types[i], first = 1:(nchar(formula_types[i]) - 1), last = 2:nchar(formula_types[i]))
     matches = which(edge_names %in% formula_str_pairs)
     matches_order = match(edge_names[matches],formula_str_pairs)
@@ -298,7 +298,7 @@ edge_matrices = function(graph){
   matrix_possible_next = matrix(data = 0, nrow = length(formula_types), ncol = length(edge_names))
   rownames(matrix_possible_next) = formula_types
   colnames(matrix_possible_next) = edge_names
-  for(i in 1:length(formula_types)){
+  for(i in seq_along(formula_types)){
     formula_types_split = unlist(strsplit(formula_types[i], ""))
     id_next <- which(all_edges[,1]==formula_types_split[length(formula_types_split)])
     if (length(id_next)==0) next
@@ -309,9 +309,9 @@ edge_matrices = function(graph){
   matrix_passed = matrix(data = 0, nrow = length(formula_types), ncol = length(edge_names))
   rownames(matrix_passed) = formula_types
   colnames(matrix_passed) = edge_names
-  for(i in 1:length(formula_types)){
+  for(i in seq_along(formula_types)){
     formula_str_pairs = substring(formula_types[i], first = 1:(nchar(formula_types[i]) - 1), last = 2:nchar(formula_types[i]))
-    for (j in 1:length(formula_str_pairs)){
+    for (j in seq_along(formula_str_pairs)){
       pair_split = unlist(strsplit(formula_str_pairs[j], ""))
       match_passed = which(pair_split[1]==all_edges[,1] & pair_split[2]!=all_edges[,2])
       if (length(match_passed)==0) next

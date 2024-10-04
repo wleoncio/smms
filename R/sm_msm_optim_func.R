@@ -47,7 +47,7 @@ smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, h
     f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
     integrand_mellomregn = list()
     integral_mellomregn= list()
-    for(j in 1:length(f_types)){
+    for(j in seq_along(f_types)){
       integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens,abs_exact=abs_exact)))
       integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats,absorbing_states,abs_exact=abs_exact)
     }
@@ -120,7 +120,7 @@ hessian_matrix = function(param, data, graph, X = NULL, mc_cores = 1,cmethod = "
     f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
     integrand_mellomregn = list()
     integral_mellomregn= list()
-    for(j in 1:length(f_types)){
+    for(j in seq_along(f_types)){
       integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens)))
       integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats,absorbing_states)
     }

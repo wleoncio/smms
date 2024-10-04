@@ -24,7 +24,7 @@ write_type <- function(obs_type,graph,abs_exact=TRUE){
   f_types = names(which(formula_obs_types[, obs_type] == 1))
   lik_parts <- rep(NA,length(f_types))
 
-  for (k in 1:length(f_types)){
+  for (k in seq_along(f_types)){
     form_type=f_types[k]
 
     integrand = type_to_integrand(form_type,edge_mats, names_surv_dens,abs_exact=abs_exact)
@@ -96,14 +96,14 @@ write_type <- function(obs_type,graph,abs_exact=TRUE){
 
     m <- gregexpr("[fS]_[[:digit:]]{2}",int)
     call <- regmatches(int,m)
-    for (i in 1:length(call[[1]])){
+    for (i in seq_along(call[[1]])){
       callspl <- unlist(strsplit(call[[1]][i],""))
       int <- gsub(call[[1]][i],paste(callspl[1],"_{",paste(callspl[3:4],collapse=""),"}",sep=""),int)
     }
 
     # Make timepoints (belonging to the obs_type)
     timepoints = NULL
-    for (i in 1:length(otype_splt)){
+    for (i in seq_along(otype_splt)){
       st <- as.numeric(otype_splt[i])
       if (state_ord$type[which(state_ord$order==st)]=="trans"){
         ti <- c(paste("t_{",st,"m}",sep=""),paste("t_{",st,"M}",sep=""))
@@ -129,20 +129,20 @@ write_type <- function(obs_type,graph,abs_exact=TRUE){
           next_state <- splitted_f_type[j+1]
           if (next_state %in% jump_states & (current_state %in% jump_states)){
             lower[j] <- 0
-            id_up <- which(1:length(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))>as.numeric(next_state))
+            id_up <- which(seq_along(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))>as.numeric(next_state))
             upper[j] <- paste(timepoints[min(id_up)],add_ons[j-1],sep="")
           }else if (next_state %in% jump_states & !(current_state %in% jump_states)){
-            id_low <- which(1:length(timepoints)%in%seq(1,19,2) & as.numeric(substr(timepoints,4,4))==as.numeric(current_state))
-            id_up <- which(1:length(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))>as.numeric(next_state))
+            id_low <- which(seq_along(timepoints)%in%seq(1,19,2) & as.numeric(substr(timepoints,4,4))==as.numeric(current_state))
+            id_up <- which(seq_along(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))>as.numeric(next_state))
             lower[j] <- paste(timepoints[id_low],add_ons[j-1],sep="")
             upper[j] <- paste(timepoints[min(id_up)],add_ons[j-1],sep="")
           }else if (!(next_state %in% jump_states) & (current_state %in% jump_states)){
             lower[j] <- 0
-            id_up <- which(1:length(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))==as.numeric(next_state))
+            id_up <- which(seq_along(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))==as.numeric(next_state))
             upper[j] <- paste(timepoints[min(id_up)],add_ons[j-1],sep="")
           }else{
-            id_low <- which(1:length(timepoints)%in%seq(1,19,2) & as.numeric(substr(timepoints,4,4))==as.numeric(current_state))
-            id_up <- which(1:length(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))==as.numeric(next_state))
+            id_low <- which(seq_along(timepoints)%in%seq(1,19,2) & as.numeric(substr(timepoints,4,4))==as.numeric(current_state))
+            id_up <- which(seq_along(timepoints)%in%seq(2,20,2) & as.numeric(substr(timepoints,4,4))==as.numeric(next_state))
             lower[j] <- paste(timepoints[id_low],add_ons[j-1],sep="")
             upper[j] <- paste(timepoints[id_up],add_ons[j-1],sep="")
           }
@@ -192,7 +192,7 @@ write_loglikelihood <- function(graph,abs_exact=TRUE){
   o_types <- construct_obs_types(graph)
   all_parts <- rep(NA,length(o_types))
 
-  for (i in 1:length(all_parts)){
+  for (i in seq_along(all_parts)){
     all_parts[i] <- write_type(obs_type=o_types[i],graph=graph,abs_exact=abs_exact)
   }
   eq <- paste("\\begin{align*} \n \\ell_n (\\theta)= ",paste(all_parts,collapse=" + "),". \n \\end{align*}")

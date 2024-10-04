@@ -27,7 +27,7 @@ names_of_survival_density = function(graph){
 
   matrix_names = as.data.frame(matrix(ncol = 6, nrow = length(edge_names)))
   colnames(matrix_names) = c("edge_name","survival_name", "density_name", "from_prev", "to_prev", "type")
-  for(i in 1:length(edge_names)){
+  for(i in seq_along(edge_names)){
     kk_to = which(state_ord$state %in% all_edges[i,2])
     matrix_names[i, "survival_name"] = paste(c("S_", edge_names[i]), collapse = "")
     matrix_names[i, "density_name"] = paste(c("f_", edge_names[i]), collapse = "")
@@ -404,7 +404,7 @@ finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_e
     #id_na <- which(is.na(M_times) & substr(names(M_times),2,2)%in%unobs_states) #in unobs unecessary?
     id_na <- which(is.na(M_times))
     if (length(id_na)>0){
-      for (j in 1:length(id_na)){  ## CHECK
+      for (j in seq_along(id_na)){  ## CHECK
         M_times[id_na[j]] <- M_times[id_na[j]-1]
       }
     }
@@ -464,7 +464,7 @@ finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_e
 mloglikelihood <-  function(param,integrands,limits, X = NULL,cmethod = "hcubature",mc_cores = 2){
   # Test that limits and integrand have same length
 
-  final_integral = sum(unlist(parallel::mclapply(1:length(integrands), function(i){
+  final_integral = sum(unlist(parallel::mclapply(seq_along(integrands), function(i){
     mm <- length(limits[[i]])
     lli <- rep(NA,mm)
     for (j in 1:mm){

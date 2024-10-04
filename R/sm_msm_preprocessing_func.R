@@ -54,7 +54,7 @@ state_ordering = function(graph){
 
   state_num$order[which(state_num$state %in% absorbing_states)] <- (k-1-length(absorbing_states)+1):(k-1)
   state_num$type[which(state_num$state %in% absorbing_states)] <- "abs"
-  return(state_num)
+  state_num
 }
 
 #' Filter away redundant observations in a multi-state dataset
@@ -121,7 +121,7 @@ relevant_timepoints = function(data, graph){
     idd = c(idd,which(ddr$patient==inds[i])[id_unrelevant])
   }
   if (length(idd)>0) ddr = ddr[-idd,]
-  return(ddr)
+  ddr
 }
 
 #' Find all formula types
@@ -161,8 +161,7 @@ construct_formula_types = function(graph){
       }
     }
   }
-  form_types = unique(form_types)
-  return(form_types)
+  unique(form_types)
 }
 
 
@@ -186,8 +185,7 @@ construct_obs_types = function(graph){
       obs_types = c(obs_types,unlist(lapply(ot,function(m) apply(m,2,paste,collapse=""))))
     }
   }
-  obs_types = unique(obs_types)
-  return(obs_types)
+  unique(obs_types)
 }
 
 #' Find links between formula and observation types
@@ -215,7 +213,7 @@ all_types = function(graph){
       }
     }
   }
-  return(matrix_all_types)
+  matrix_all_types
 }
 
 #' Arrange data set
@@ -260,7 +258,7 @@ arrange_data = function(data, graph){
     ## Which observed type the individual is
     timepoints[i, ncol(timepoints)] = paste(unique(names(tti[!(is.na(tti))])), collapse ="")
   }
-  return(timepoints)
+  timepoints
 }
 
 #' Make edge matrices
@@ -318,6 +316,5 @@ edge_matrices = function(graph){
       matrix_passed[i,match_passed] = j
     }
   }
-  list_all_edges = list("traveled" = matrix_travelled , "passedBy" = matrix_passed, "possible" = matrix_possible_next)
-  return(list_all_edges)
+  list("traveled" = matrix_travelled , "passedBy" = matrix_passed, "possible" = matrix_possible_next)
 }

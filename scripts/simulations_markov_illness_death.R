@@ -93,7 +93,7 @@ simulation_t = function(param, n){
       t_type3 = rbind(t_type3, T_02[i])
     }
   }
-  return(list(t_type0 = t_type0, t_type1 = t_type1, t_type2 = t_type2, t_type3 = t_type3))
+  list(t_type0 = t_type0, t_type1 = t_type1, t_type2 = t_type2, t_type3 = t_type3)
 }
 
 sum_all = function(a, t_type0, t_type1, t_type2, t_type3, mc_cores){
@@ -107,7 +107,7 @@ sum_all = function(a, t_type0, t_type1, t_type2, t_type3, mc_cores){
   type_4 = -sum(unlist(mclapply(seq_len(nrow(t_type3)), function(i) (log(f_02(a = a,  t = t_type3[i, 1])*
                                                                     S_01(a = a,  t = t_type3[i, 1]))))))
 
-  return(type_1 + type_2 + type_3 + type_4)
+  type_1 + type_2 + type_3 + type_4
 }
 
 sum_all_markov = function(a, t_type0, t_type1, t_type2, t_type3, mc_cores){
@@ -121,7 +121,7 @@ sum_all_markov = function(a, t_type0, t_type1, t_type2, t_type3, mc_cores){
   type_4_exp = -sum(unlist(mclapply(seq_len(nrow(t_type3)), function(i) (log(f_02_exp(a = a,  t = t_type3[i, 1])*
                                                                     S_01_exp(a = a,  t = t_type3[i, 1]))))))
 
-  return(type_1_exp + type_2_exp + type_3_exp + type_4_exp)
+  type_1_exp + type_2_exp + type_3_exp + type_4_exp
 }
 
 log_lik_semi_markov = rep(NA, nn)

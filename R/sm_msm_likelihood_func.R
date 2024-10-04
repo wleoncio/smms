@@ -36,7 +36,7 @@ names_of_survival_density = function(graph){
     matrix_names[i, "edge_name"] = edge_names[i]
     matrix_names[i, "type"] = state_ord[kk_to, "type"]
   }
-  return(matrix_names)
+  matrix_names
 }
 
 #' Write out the integrand as a string
@@ -344,7 +344,7 @@ change_integrand <- function(integr){
       int <- sub("\\{.+?f_","\\{\nss<-times[1]\nf_",int) #sub("\\{.+f_","\\{\nss<-times[1]\nf_01",int)
     }
   }
-  return(eval(parse(text=int)))
+  eval(parse(text=int))
 }
 
 
@@ -486,13 +486,12 @@ mloglikelihood <-  function(param,integrands,limits, X = NULL,cmethod = "hcubatu
             },error=function(cond){
               integrand2 <- change_integrand(integrands[[i]][[j]])
               if (length(unique(lower)) != length(lower)){
-                llij = cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
+                cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
                                       tt = tmax[1], tt2=tmax[2],param = param, x = X[i,])$integral
               }else if (length(unique(lower)) == length(lower)){
-                llij = cubature::cubintegrate(integrand2, lower = lower,upper = upper,maxEval = 500,
+                cubature::cubintegrate(integrand2, lower = lower,upper = upper,maxEval = 500,
                                       method = cmethod, tt = tmax[1], tt2=tmax[2],param = param, x = X[i,])$integral
               }
-              return(llij)
             })
 
         }else if (length(lower)>2){

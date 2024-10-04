@@ -92,7 +92,7 @@ simulation_t = function(param, n){
       t_type3 = rbind(t_type3, c(T_02[i], x))
     }
   }
-  return(list(t_type0 = t_type0, t_type1 = t_type1, t_type2 = t_type2, t_type3 = t_type3))
+  list(t_type0 = t_type0, t_type1 = t_type1, t_type2 = t_type2, t_type3 = t_type3)
 }
 
 ## Competing risks approach
@@ -108,7 +108,7 @@ sum_all_comp = function(a, t_type0, t_type1, t_type2, t_type3, mc_cores){
   type_4_comp = -sum(unlist(mclapply(seq_len(nrow(t_type3)), function(i) (log(f_02_comp(a = a,  t = t_type3[i, 1], x = t_type3[i, 2])*
                                                                          S_01_comp(a = a,  t = t_type3[i, 1], x = t_type3[i, 2]))))))
 
-  return(type_1_comp + type_2_comp + type_3_comp + type_4_comp)
+  type_1_comp + type_2_comp + type_3_comp + type_4_comp
 }
 
 ## Embedded Markov chain approach
@@ -123,7 +123,7 @@ sum_all_embed = function(a, t_type0, t_type1, t_type2, t_type3, mc_cores){
               w = t_type2[i,3], a = a, x = t_type2[i, 4])[1]))),mc.cores = mc_cores), use.names = FALSE))
   type_4_embed = -sum(unlist(mclapply(seq_len(nrow(t_type3)), function(i) (log(f_02_embed(a = a,  t = t_type3[i, 1], x = t_type3[i, 2]))))))
 
-  return(type_1_embed + type_2_embed + type_3_embed + type_4_embed)
+  type_1_embed + type_2_embed + type_3_embed + type_4_embed
 }
 
 log_lik_semi_markov = rep(NA, nn)

@@ -151,4 +151,6 @@ round(exp(est_ci(mlo$opt$par,mlo$hess)),2)
 
 * Jackson CH (2011). [Multi-State Models for Panel Data: The msm Package for R.](https://www.jstatsoft.org/v38/i08/) Journal of Statistical Software, 38, 1–29.
 
+# Badges
 
+[![CodeFactor](https://www.codefactor.io/repository/github/wleoncio/smms/badge)](https://www.codefactor.io/repository/github/wleoncio/smms)

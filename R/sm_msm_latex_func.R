@@ -102,7 +102,7 @@ write_type <- function(obs_type,graph,abs_exact=TRUE){
     }
 
     # Make timepoints (belonging to the obs_type)
-    timepoints = c()
+    timepoints = NULL
     for (i in 1:length(otype_splt)){
       st <- as.numeric(otype_splt[i])
       if (state_ord$type[which(state_ord$order==st)]=="trans"){

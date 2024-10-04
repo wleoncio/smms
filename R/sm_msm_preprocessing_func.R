@@ -146,7 +146,7 @@ construct_formula_types = function(graph){
   subsets[,2] <- rep(c(init,trans,abs),times=length(init))
 
   ## Determine which subsets containt none, one or multiple paths
-  form_types = c()
+  form_types = NULL
   for(p in 1:nrow(subsets)){
     paths = igraph::all_simple_paths(graph, state_ord$state[which(state_ord$order==subsets[p,1])],
                              state_ord$state[which(state_ord$order==subsets[p,2])])
@@ -176,7 +176,7 @@ construct_formula_types = function(graph){
 #' @return A vector with string elements indicating the states in which the patient is observed.
 construct_obs_types = function(graph){
   form_types = construct_formula_types(graph)
-  obs_types = c()
+  obs_types = NULL
   for (i in 1:length(form_types)){
     st = strsplit(form_types[i],"")[[1]]
     obs_types = c(obs_types,form_types[i])

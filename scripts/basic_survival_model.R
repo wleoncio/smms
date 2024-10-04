@@ -30,7 +30,7 @@ S_01 = function(param, x, t){(1-pexp(t,exp(param[1])))}
 f_01 = function(param, x, t){dexp(t,exp(param[1]))}
 
 # Optimize:
-startval <- c(0.8)
+startval <- 0.8
 mlo <- smms(startval,dd,gg, mc_cores = 1, hessian_matrix = T)
 
 

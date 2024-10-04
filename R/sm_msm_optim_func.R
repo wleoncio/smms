@@ -686,7 +686,7 @@ transition_prob_delta = function(trans_ji, time_t,time_v, param, graph, xval = N
           })
 
         }else if (length(lower)>2){
-          integrand2 <- integrand # TODO: placeholder. check if this is correct (probably isn't)
+          integrand2 <- change_integrand(integrand) # introduced on 8ed1f77bb85b2ec323645c7f7e3e72a1fdfd1f2d
           n_deriv[j,] = pracma::grad(cubint,x0=param,integrand=integrand2,lower = lower,upper = upper, tmax=tmax,xval=xval)
         }
       }

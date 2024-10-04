@@ -419,7 +419,7 @@ finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_e
     #id_na <- which(is.na(m_times) & substr(names(m_times),2,2)%in%unobs_states)
     id_na <- which(is.na(m_times))
     if (length(id_na)>0){
-      for (j in length(id_na):1){  ## CHECK
+      for (j in rev(seq_along(id_na))){  ## CHECK
         m_times[id_na[j]] <- m_times[id_na[j]+1]
       }
     }

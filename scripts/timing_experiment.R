@@ -64,7 +64,7 @@ for (k in 1:6){
     all_integral_limits = list()
     integrand = list()
 
-    for(i in 1:nrow(dda)){
+    for(i in seq_len(nrow(dda))){
       observation_type[i] = dda[i,"obs_type"]
       f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
       integrand_mellomregn = list()
@@ -132,7 +132,7 @@ for (k in 1:6){
     all_integral_limits = list()
     integrand = list()
 
-    for(i in 1:nrow(dda)){
+    for(i in seq_len(nrow(dda))){
       observation_type[i] = dda[i,"obs_type"]
       f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
       integrand_mellomregn = list()
@@ -196,7 +196,7 @@ for (k in 1:6){
     all_integral_limits = list()
     integrand = list()
 
-    for(i in 1:nrow(dda)){
+    for(i in seq_len(nrow(dda))){
       observation_type[i] = dda[i,"obs_type"]
       f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
       integrand_mellomregn = list()

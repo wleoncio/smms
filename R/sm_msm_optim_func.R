@@ -42,7 +42,7 @@ smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, h
   all_integral_limits = list()
   integrand = list()
 
-  for(i in 1:nrow(all_data_set)){
+  for(i in seq_len(nrow(all_data_set))){
     observation_type[i] = all_data_set[i,"obs_type"]
     f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
     integrand_mellomregn = list()
@@ -115,7 +115,7 @@ hessian_matrix = function(param, data, graph, X = NULL, mc_cores = 1,cmethod = "
   all_integral_limits = list()
   integrand = list()
 
-  for(i in 1:nrow(all_data_set)){
+  for(i in seq_len(nrow(all_data_set))){
     observation_type[i] = all_data_set[i,"obs_type"]
     f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
     integrand_mellomregn = list()

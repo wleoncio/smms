@@ -147,7 +147,7 @@ construct_formula_types = function(graph){
 
   ## Determine which subsets containt none, one or multiple paths
   form_types = NULL
-  for(p in 1:nrow(subsets)){
+  for(p in seq_len(nrow(subsets))){
     paths = igraph::all_simple_paths(graph, state_ord$state[which(state_ord$order==subsets[p,1])],
                              state_ord$state[which(state_ord$order==subsets[p,2])])
     ## If only observed in initial state

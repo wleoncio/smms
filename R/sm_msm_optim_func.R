@@ -42,12 +42,12 @@ smms = function(startval, data, graph, X = NULL, abs_exact=TRUE, mc_cores = 1, h
   all_integral_limits = list()
   integrand = list()
 
-  for(i in 1:nrow(all_data_set)){
+  for(i in seq_len(nrow(all_data_set))){
     observation_type[i] = all_data_set[i,"obs_type"]
     f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
     integrand_mellomregn = list()
     integral_mellomregn= list()
-    for(j in 1:length(f_types)){
+    for(j in seq_along(f_types)){
       integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens,abs_exact=abs_exact)))
       integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats,absorbing_states,abs_exact=abs_exact)
     }
@@ -115,12 +115,12 @@ hessian_matrix = function(param, data, graph, X = NULL, mc_cores = 1,cmethod = "
   all_integral_limits = list()
   integrand = list()
 
-  for(i in 1:nrow(all_data_set)){
+  for(i in seq_len(nrow(all_data_set))){
     observation_type[i] = all_data_set[i,"obs_type"]
     f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
     integrand_mellomregn = list()
     integral_mellomregn= list()
-    for(j in 1:length(f_types)){
+    for(j in seq_along(f_types)){
       integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens)))
       integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats,absorbing_states)
     }
@@ -216,9 +216,8 @@ occupancy_prob = function(state, time, param, graph, xval = NULL){
                          x = xval)
           },error=function(cond){
             integrand2 <- change_integrand(integrand)
-            llij = cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
+            cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
                                   tt = tmax[1], tt2=tmax[2],param = param, x = xval)$integral
-            return(llij)
           })
 
         }else if (length(lower)>2){
@@ -318,8 +317,7 @@ occupancy_prob_delta = function(state, time, param, graph, xval = NULL){
             pracma::grad(repintegrate,x0=param,innerfunc=integrand,tt=tmax[1],tt2=tmax[2],lower=lower,upper = upper,x = xval)
           },error=function(cond){
             integrand2 <- change_integrand(integrand)
-            llij = pracma::grad(cubint,x0=param,integrand=integrand2,lower = lower,upper = upper, tmax=tmax,xval=xval)
-            return(llij)
+            pracma::grad(cubint,x0=param,integrand=integrand2,lower = lower,upper = upper, tmax=tmax,xval=xval)
           })
 
         }else if (length(lower)>2){
@@ -562,9 +560,8 @@ transition_prob = function(trans_ji, time_t,time_v, param, graph, xval = NULL){
                          x = xval)
           },error=function(cond){
             integrand2 <- change_integrand(integrand)
-            llij = cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
+            cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
                                           tt = tmax[1], tt2=tmax[2],param = param, x = xval)$integral
-            return(llij)
           })
 
         }else if (length(lower)>2){
@@ -685,8 +682,7 @@ transition_prob_delta = function(trans_ji, time_t,time_v, param, graph, xval = N
             pracma::grad(repintegrate,x0=param,innerfunc=integrand,tt=tmax[1],tt2=tmax[2],lower=lower,upper = upper,x = xval)
           },error=function(cond){
             integrand2 <- change_integrand(integrand)
-            llij = pracma::grad(cubint,x0=param,integrand=integrand2,lower = lower,upper = upper, tmax=tmax,xval=xval)
-            return(llij)
+            pracma::grad(cubint,x0=param,integrand=integrand2,lower = lower,upper = upper, tmax=tmax,xval=xval)
           })
 
         }else if (length(lower)>2){

@@ -8,7 +8,7 @@ output:
 
 # smms: Semi-Markov Multi-State models for interval censored data
 
-The `smms` package allows you to fit Semi-Markovian multi-state models to panel datasets. The package constructs and optimises the likelihood of arbitrary multi-state models where the possible state transitions can be described by an acyclic graph with one or more initial states and one or more absorbing states. 
+The `smms` package allows you to fit Semi-Markovian multi-state models to panel datasets. The package constructs and optimises the likelihood of arbitrary multi-state models where the possible state transitions can be described by an acyclic graph with one or more initial states and one or more absorbing states.
 
 Designed for data where the exact state transitions are not necessarily observed, so that we have interval censoring of the transition times. Data like these are sometimes referred to as panel data.
 
@@ -38,7 +38,7 @@ See NEWS.md for changes for complete version history.
 ## Overview
 
 
-The main function in this package is the `smms` function, which is used to fit a multi-state model. The user needs to provide a datasets of states and time-points for multiple units of observation, typically referred to as *patients*, a graph describing the states and the possible transitions between them, and a set of parametric densities, and survival functions. 
+The main function in this package is the `smms` function, which is used to fit a multi-state model. The user needs to provide a datasets of states and time-points for multiple units of observation, typically referred to as *patients*, a graph describing the states and the possible transitions between them, and a set of parametric densities, and survival functions.
 
 In the next section, we will illustrate the use of the `smms` function in a simple example.
 
@@ -52,14 +52,14 @@ Here we see the observations belonging to two patients. Note here that the state
 
 ```{r, message=FALSE}
 library(smms)
-library(igraph) # For specifying the multi-state graph 
+library(igraph) # For specifying the multi-state graph
 library(msm) # To get the CAV dataset
 
 dd = cav
 dd = dd[!is.na(dd$pdiag),]
 
 # Remove observations where the patient appears to go back to a previous state (assumed to be impossible):
-id_wrong = unique(dd$PTNUM[which(dd$state!=dd$statemax)])  
+id_wrong = unique(dd$PTNUM[which(dd$state!=dd$statemax)])
 dd = dd[-which(dd$PTNUM %in% id_wrong),]
 
 # Change state names from 1,2,3,4 to well, mild, severe, death
@@ -74,7 +74,7 @@ print(dd[1:11,])
 
 ### Specifying the model graph
 
-Here we assume a four-state illness death model, since we consider CAV to be irreversible (so we do not allow for patients to move back to less severe states). It is convenient to stick to the same state names as in the dataset when specifying the model graph. 
+Here we assume a four-state illness death model, since we consider CAV to be irreversible (so we do not allow for patients to move back to less severe states). It is convenient to stick to the same state names as in the dataset when specifying the model graph.
 
 ```{r}
 # Specify the graph:
@@ -83,7 +83,7 @@ par(mar=c(1,1,1,1))
 plot(gg,layout=layout_with_sugiyama(gg,layers=c(1,1,1,2))$layout,vertex.size=40)
 ```
 
-### Specifying parametric models 
+### Specifying parametric models
 
 Then, the user has to specify parametric models for all transition times (meaning one for each edge in the graph). In the current version of the package, these models have to be specified by providing density functions (in a specific format detailed below), as well as the corresponding survival functions. The functions will look like the following if one chooses to use simple exponential models for all transitions (i.e. meaning that we are fitting a homogeneous Markov model which could have been fitted with the `msm`package too - but this is for the sake of a simple illustration):
 
@@ -132,24 +132,25 @@ One needs some start values for the optimisation, and we will soon add a functio
 load("README_files/cav_expo_noCov_optims")
 ```
 
-We can compute AIC, and look at the estimated parameters and approximate 95% confidence intervals. 
+We can compute AIC, and look at the estimated parameters and approximate 95% confidence intervals.
 
 ```{r}
 # Compute AIC (higher values are better with this definition)
 aic <- (-2*mlo$opt$objective)-2*length(mlo$opt$par) #-2887.1
 
-# Look at estimates and 95% confidence intervals. 
+# Look at estimates and 95% confidence intervals.
 # On the -Inf to Inf scale:
-print(round(est_ci(mlo$opt$par,mlo$hess),2)) 
+print(round(est_ci(mlo$opt$par,mlo$hess),2))
 
 # On the 0 to Inf scale (on the transition intensity scale):
-round(exp(est_ci(mlo$opt$par,mlo$hess)),2) 
+round(exp(est_ci(mlo$opt$par,mlo$hess)),2)
 ```
 
 
 ## References
 
-* Jackson CH (2011). [Multi-State Models for Panel Data: The msm Package for R.](https://www.jstatsoft.org/v38/i08/) Journal of Statistical Software, 38, 1–29. 
+* Jackson CH (2011). [Multi-State Models for Panel Data: The msm Package for R.](https://www.jstatsoft.org/v38/i08/) Journal of Statistical Software, 38, 1–29.
 
+# Badges
 
-
+[![CodeFactor](https://www.codefactor.io/repository/github/wleoncio/smms/badge)](https://www.codefactor.io/repository/github/wleoncio/smms)

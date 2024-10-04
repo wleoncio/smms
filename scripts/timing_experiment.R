@@ -2,7 +2,7 @@
 #### up to 7 state progressive with absorbing not observed exactly
 setwd("~/Multistate models/smms")
 rm(list = ls())
-devtools::load_all() 
+devtools::load_all()
 library(igraph)
 library(parallel)
 library(cubature)
@@ -39,7 +39,7 @@ f_56 = function(param, x, t){as.numeric(t>=0)*dexp(t,exp(param[6]))}
 
 for (k in 1:6){
   tt <- rep(NA,mm)
-  
+
   for (m in 1:mm){
     param <- rep(1,k)
     int_dim <- k-1
@@ -51,25 +51,25 @@ for (k in 1:6){
     }
     gg <- graphs[[k]]
     dda <- arrange_data(dd,gg)
-    
+
     formula_obs_types = all_types(gg)
     edge_mats <- edge_matrices(gg)
     state_ord = state_ordering(gg)
     absorbing_states <- sort(state_ord$order[which(state_ord$type=="abs")])
     names_surv_dens = names_of_survival_density(gg)
-    
+
     timepointMat <- dda[,1:(dim(dda)[2]-1)]
-    
+
     observation_type = rep(NA, nrow(dda))
     all_integral_limits = list()
     integrand = list()
-    
-    for(i in 1:nrow(dda)){
+
+    for(i in seq_len(nrow(dda))){
       observation_type[i] = dda[i,"obs_type"]
       f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
       integrand_mellomregn = list()
       integral_mellomregn= list()
-      for(j in 1:length(f_types)){
+      for(j in seq_along(f_types)){
         integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens,abs_exact = F)))
         integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats, absorbing_states,abs_exact = F)
       }
@@ -102,7 +102,7 @@ f_56 = function(param, x, t){as.numeric(t>=0)*dexp(t,exp(param[7]))}
 
 for (k in 1:6){
   tt <- rep(NA,mm)
-  
+
   for (m in 1:mm){
     param <- c(1,0.5,rep(1,k-1))
     int_dim <- k-1
@@ -119,25 +119,25 @@ for (k in 1:6){
     }
     gg <- graphs[[k]]
     dda <- arrange_data(dd,gg)
-    
+
     formula_obs_types = all_types(gg)
     edge_mats <- edge_matrices(gg)
     state_ord = state_ordering(gg)
     absorbing_states <- sort(state_ord$order[which(state_ord$type=="abs")])
     names_surv_dens = names_of_survival_density(gg)
-    
+
     timepointMat <- dda[,1:(dim(dda)[2]-1)]
-    
+
     observation_type = rep(NA, nrow(dda))
     all_integral_limits = list()
     integrand = list()
-    
-    for(i in 1:nrow(dda)){
+
+    for(i in seq_len(nrow(dda))){
       observation_type[i] = dda[i,"obs_type"]
       f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
       integrand_mellomregn = list()
       integral_mellomregn= list()
-      for(j in 1:length(f_types)){
+      for(j in seq_along(f_types)){
         integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens,abs_exact = F)))
         integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats, absorbing_states,abs_exact = F)
       }
@@ -171,7 +171,7 @@ f_56 = function(param, x, t){as.numeric(t>=0)*dweibull(t,exp(param[11]),exp(para
 
 for (k in 1:6){
   tt <- rep(NA,mm)
-  
+
   for (m in 1:mm){
     param <- c(rep(c(1,0.5),k))
     int_dim <- k-1
@@ -183,25 +183,25 @@ for (k in 1:6){
     }
     gg <- graphs[[k]]
     dda <- arrange_data(dd,gg)
-    
+
     formula_obs_types = all_types(gg)
     edge_mats <- edge_matrices(gg)
     state_ord = state_ordering(gg)
     absorbing_states <- sort(state_ord$order[which(state_ord$type=="abs")])
     names_surv_dens = names_of_survival_density(gg)
-    
+
     timepointMat <- dda[,1:(dim(dda)[2]-1)]
-    
+
     observation_type = rep(NA, nrow(dda))
     all_integral_limits = list()
     integrand = list()
-    
-    for(i in 1:nrow(dda)){
+
+    for(i in seq_len(nrow(dda))){
       observation_type[i] = dda[i,"obs_type"]
       f_types = names(which(formula_obs_types[, observation_type[i]] == 1))
       integrand_mellomregn = list()
       integral_mellomregn= list()
-      for(j in 1:length(f_types)){
+      for(j in seq_along(f_types)){
         integrand_mellomregn[[j]] = eval(parse(text=type_to_integrand(f_types[j], edge_mats, names_surv_dens,abs_exact = F)))
         integral_mellomregn[[j]] = finding_limits(timepointMat[i,],f_types[j],edge_mats, absorbing_states,abs_exact = F)
       }
@@ -214,4 +214,3 @@ for (k in 1:6){
   }
   ctimes[which(ctimes$int_dim==(k-1) & ctimes$num_par=="2"),3] <- mean(tt)
 }
-

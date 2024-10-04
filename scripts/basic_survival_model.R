@@ -1,8 +1,8 @@
 #### Simple survival analysis model: Boag (1949) dataset
-### Expo model without covariates 
+### Expo model without covariates
 
 library(smms)
-library(igraph) # For specifying the multi-state graph 
+library(igraph) # For specifying the multi-state graph
 
 # Graph:
 gg = graph_from_literal("0"--+"1")
@@ -30,14 +30,14 @@ S_01 = function(param, x, t){(1-pexp(t,exp(param[1])))}
 f_01 = function(param, x, t){dexp(t,exp(param[1]))}
 
 # Optimize:
-startval <- c(0.8)
+startval <- 0.8
 mlo <- smms(startval,dd,gg, mc_cores = 1, hessian_matrix = T)
 
 
 # Prevalence plot
-tval <- seq(0.01,1,length=50) 
+tval <- seq(0.01,1,length=50)
 # a sequence of time-points over which to compute the state occupancies
-p0_ci <- occupancy_prob_ci_band("0",tval,mlo$opt$par,gg,hessian=mlo$hess) 
+p0_ci <- occupancy_prob_ci_band("0",tval,mlo$opt$par,gg,hessian=mlo$hess)
 #for computing the confidence bands, the hessian needs to be provided (but there
 # exists a function computing only the occupancy probabilities too)
 p1_ci <- occupancy_prob_ci_band("1",tval,mlo$opt$par,gg,hessian=mlo$hess)

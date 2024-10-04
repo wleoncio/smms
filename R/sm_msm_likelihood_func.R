@@ -27,7 +27,7 @@ names_of_survival_density = function(graph){
 
   matrix_names = as.data.frame(matrix(ncol = 6, nrow = length(edge_names)))
   colnames(matrix_names) = c("edge_name","survival_name", "density_name", "from_prev", "to_prev", "type")
-  for(i in 1:length(edge_names)){
+  for(i in seq_along(edge_names)){
     kk_to = which(state_ord$state %in% all_edges[i,2])
     matrix_names[i, "survival_name"] = paste(c("S_", edge_names[i]), collapse = "")
     matrix_names[i, "density_name"] = paste(c("f_", edge_names[i]), collapse = "")
@@ -36,7 +36,7 @@ names_of_survival_density = function(graph){
     matrix_names[i, "edge_name"] = edge_names[i]
     matrix_names[i, "type"] = state_ord[kk_to, "type"]
   }
-  return(matrix_names)
+  matrix_names
 }
 
 #' Write out the integrand as a string
@@ -344,7 +344,7 @@ change_integrand <- function(integr){
       int <- sub("\\{.+?f_","\\{\nss<-times[1]\nf_",int) #sub("\\{.+f_","\\{\nss<-times[1]\nf_01",int)
     }
   }
-  return(eval(parse(text=int)))
+  eval(parse(text=int))
 }
 
 
@@ -404,7 +404,7 @@ finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_e
     #id_na <- which(is.na(M_times) & substr(names(M_times),2,2)%in%unobs_states) #in unobs unecessary?
     id_na <- which(is.na(M_times))
     if (length(id_na)>0){
-      for (j in 1:length(id_na)){  ## CHECK
+      for (j in seq_along(id_na)){  ## CHECK
         M_times[id_na[j]] <- M_times[id_na[j]-1]
       }
     }
@@ -464,7 +464,7 @@ finding_limits <- function(timepoints,form_type,edge_mats,absorbing_states,abs_e
 mloglikelihood <-  function(param,integrands,limits, X = NULL,cmethod = "hcubature",mc_cores = 2){
   # Test that limits and integrand have same length
 
-  final_integral = sum(unlist(parallel::mclapply(1:length(integrands), function(i){
+  final_integral = sum(unlist(parallel::mclapply(seq_along(integrands), function(i){
     mm <- length(limits[[i]])
     lli <- rep(NA,mm)
     for (j in 1:mm){
@@ -486,13 +486,12 @@ mloglikelihood <-  function(param,integrands,limits, X = NULL,cmethod = "hcubatu
             },error=function(cond){
               integrand2 <- change_integrand(integrands[[i]][[j]])
               if (length(unique(lower)) != length(lower)){
-                llij = cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
+                cubature::cubintegrate(integrand2, lower = lower,upper = upper, method = "divonne", maxEval = 500,
                                       tt = tmax[1], tt2=tmax[2],param = param, x = X[i,])$integral
               }else if (length(unique(lower)) == length(lower)){
-                llij = cubature::cubintegrate(integrand2, lower = lower,upper = upper,maxEval = 500,
+                cubature::cubintegrate(integrand2, lower = lower,upper = upper,maxEval = 500,
                                       method = cmethod, tt = tmax[1], tt2=tmax[2],param = param, x = X[i,])$integral
               }
-              return(llij)
             })
 
         }else if (length(lower)>2){

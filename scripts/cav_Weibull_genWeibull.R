@@ -14,7 +14,7 @@ dim(dd[dd$firstobs==1,]) # 614 patients
 #first obs (at years=0) is always in state 1
 id_wrong = unique(dd$PTNUM[which(dd$state!=dd$statemax)])  # observations where the patient appears to go back to a previous state
 dd = dd[-which(dd$PTNUM %in% id_wrong),]
-## Only relevant parts 
+## Only relevant parts
 dd = dd[ ,-c(2, 5, 7, 9, 10)]
 dd$dage_st = (dd$dage-mean(dd$dage))/sd(dd$dage)
 dd$ihd = (dd$pdiag=="IHD")
@@ -30,7 +30,7 @@ names_of_survival_density(gg)
 pXweibull <- function(tt,a,b,th){
   pp <- 1-exp(1-(1+(tt/b)^a)^(1/th))
   pp[tt<0] <- 0 #to ensure that the survival function returns 1 when tt<0
-  return(pp)
+  pp
 }
 dXweibull <- function(tt,a,b,th){
   (1/th)*(a/b)*(tt/b)^(a-1)*(1+(tt/b)^a)^(1/th-1)*exp(1-(1+(tt/b)^a)^(1/th))

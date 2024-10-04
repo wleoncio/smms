@@ -1,6 +1,6 @@
 Package: smms
 Title: Semi-Markov Multi-State Models for Interval Censored Data
-Version: 1.0.0.9000
+Version: 1.0.0.9001
 Date: 2024-03-12
 Authors@R:
     c(

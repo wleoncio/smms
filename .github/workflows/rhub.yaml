@@ -38,9 +38,9 @@ jobs:
         config: ${{ github.event.inputs.config }}
 
     - name: Install TeX Live
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-full
+      uses: teatimeguest/setup-texlive-action@v3
+      with:
+        packages: scheme-basic
 
   linux-containers:
     needs: setup

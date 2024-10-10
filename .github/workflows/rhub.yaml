@@ -41,7 +41,8 @@ jobs:
     - name: Install TeX Live
       run: |
         sudo apt-get update
-        sudo apt-get install -y texlive-latex-base
+        sudo apt-get install -y texlive-full
+        echo "::add-path::/usr/local/texlive/2021/bin/x86_64-linux"
 
   linux-containers:
     needs: setup

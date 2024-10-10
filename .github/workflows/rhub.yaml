@@ -42,7 +42,12 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y texlive-full
-        echo "/usr/local/texlive/2021/bin/x86_64-linux" >> $GITHUB_PATH
+        echo "/usr/bin" >> $GITHUB_PATH
+
+    - name: Verify pdflatex installation
+      run: |
+        which pdflatex
+        pdflatex --version
 
   linux-containers:
     needs: setup

@@ -42,7 +42,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y texlive-full
-        echo "::add-path::/usr/local/texlive/2021/bin/x86_64-linux"
+        echo "/usr/local/texlive/2021/bin/x86_64-linux" >> $GITHUB_PATH
 
   linux-containers:
     needs: setup

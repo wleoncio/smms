@@ -35,7 +35,8 @@ jobs:
     # NO NEED TO CHECKOUT HERE
     - uses: r-hub/actions/setup@v1
       with:
-        config: ${{ github.event.inputs.config }}
+       config: ${{ github.event.inputs.config }}
+      id: rhub-setup
 
     - name: Install TeX Live
       uses: teatimeguest/setup-texlive-action@v3
